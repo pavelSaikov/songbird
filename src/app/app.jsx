@@ -1,5 +1,11 @@
 import React from 'react';
 
+import { Header } from './components/header/header.jsx';
+
 export const App = () => {
-  return <div>Hello, bird</div>;
+  return (
+    <div>
+      <Header />
+    </div>
+  );
 };
