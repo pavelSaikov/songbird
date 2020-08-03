@@ -46,8 +46,10 @@
     "webpack-dev-server": "^3.11.0"
   },
   "dependencies": {
+    "amplitudejs": "^5.2.0",
     "jss-plugin-nested": "^10.1.1",
     "mapbox-gl": "^1.10.1",
+    "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-jss": "^10.1.1",
