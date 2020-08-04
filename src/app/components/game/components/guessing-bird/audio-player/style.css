@@ -1,9 +1,10 @@
 #flat-black-player-container {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
 }
 
 #player-up {
+  flex-grow: 1;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -29,6 +30,7 @@
 }
 
 #player-progress-bar-container {
+  height: 100%;
   width: 95%;
   position: relative;
 }
@@ -40,7 +42,7 @@
   height: 4px;
   display: block;
   position: absolute;
-  top: 0;
+  top: 18px;
   right: 0;
   left: 0;
   bottom: 0;
@@ -68,7 +70,7 @@
   height: 4px;
   display: block;
   position: absolute;
-  top: 0;
+  top: 18px;
   right: 0;
   left: 0;
   bottom: 0;
@@ -92,13 +94,13 @@
 
 .amplitude-duration-time {
   position: absolute;
-  top: 5px;
+  top: 23px;
   right: 0px;
 }
 
 .amplitude-current-time {
   position: absolute;
-  top: 5px;
+  top: 23px;
   left: 0px;
 }
 .song-name {
@@ -113,7 +115,7 @@
 #volume-container {
   display: flex;
   align-items: center;
-  margin-top: 20px;
+  margin-left: 20px;
 }
 
 .volume-height-container {
@@ -122,7 +124,6 @@
 
 .amplitude-volume-slider {
   width: 100px;
-  margin-top: 7px;
   margin-left: 8px;
   -webkit-appearance: none;
   display: block;
