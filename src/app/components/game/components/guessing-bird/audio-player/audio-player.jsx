@@ -24,8 +24,8 @@ export const AudioPlayer = ({ audioUrl }) => {
 
   return (
     <div id="flat-black-player-container">
-      <div id="player-up" onClick={onPlayPauseClick}>
-        <div className="amplitude-play-pause" id="play-pause">
+      <div id="player-up">
+        <div className="amplitude-play-pause" id="play-pause" onClick={onPlayPauseClick}>
           <i className={isAudioPlaying ? 'icon-pause' : 'icon-play'}></i>
         </div>
         <div id="player-progress-bar-container">

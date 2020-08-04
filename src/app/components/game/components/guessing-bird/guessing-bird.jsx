@@ -7,8 +7,8 @@ import { isShowAnswerSelector } from '../../store/game.selectors';
 import { useStyles } from './guessing-bird.styles';
 import { AudioPlayer } from './audio-player/audio-player.jsx';
 
-export const GuessingBird = ({ imgUrl, songUrl, birdName }) => {
-  const classes = useStyles();
+export const GuessingBird = ({ imgUrl, songUrl, birdName, latinBirdName, isShowLatinName }) => {
+  const classes = useStyles({ isShowLatinName });
   const isShowAnswer = useSelector(isShowAnswerSelector);
 
   const birdNameMemo = useMemo(() => {
@@ -21,11 +21,18 @@ export const GuessingBird = ({ imgUrl, songUrl, birdName }) => {
 
   return (
     <div className={classes.guessingBirdContainer}>
-      <div className={classes.imageContainer}>
-        <img src={isShowAnswer ? imgUrl : birdMock} width={'100%'} className={classes.image} />
-      </div>
+      <div
+        className={classes.imageContainer}
+        style={{
+          backgroundImage: `url("${isShowAnswer ? imgUrl : birdMock}")`,
+          backgroundSize: 'cover',
+          backgroundRepeat: 'no-repeat',
+          backgroundPosition: 'center center',
+        }}
+      ></div>
       <div className={classes.nameAndSongContainer}>
         <div className={classes.nameContainer}>{birdNameMemo}</div>
+        {isShowLatinName && <div className={classes.latinNameContainer}>{latinBirdName}</div>}
         <div>
           <AudioPlayer audioUrl={songUrl} />
         </div>
@@ -38,4 +45,6 @@ GuessingBird.propTypes = {
   imgUrl: PropTypes.string,
   songUrl: PropTypes.string,
   birdName: PropTypes.string,
+  latinBirdName: PropTypes.string,
+  isShowLatinName: PropTypes.bool,
 };
