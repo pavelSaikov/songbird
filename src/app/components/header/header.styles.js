@@ -10,6 +10,10 @@ export const useStyle = createUseStyles({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
+    '@media (max-width: 400px)': {
+      flexDirection: 'column',
+      marginBottom: '15px',
+    },
   },
   logo: {
     width: '200px',
@@ -18,6 +22,9 @@ export const useStyle = createUseStyles({
     display: 'flex',
     justifyContent: 'space-between',
     margin: '10px 0 20px 0',
+    '@media (max-width: 740px)': {
+      flexDirection: 'column',
+    },
   },
   birdGroup: {
     width: '100%',
@@ -33,6 +40,15 @@ export const useStyle = createUseStyles({
     },
     '&.active': {
       backgroundColor: '#00bc8c',
+    },
+    '@media (max-width: 740px)': {
+      width: 'auto',
+      '&.first': {
+        borderRadius: '5px 5px 0 0',
+      },
+      '&.last': {
+        borderRadius: '0 0 5px 5px',
+      },
     },
   },
 });

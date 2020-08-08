@@ -11,3 +11,8 @@ body {
   padding: 0 15px;
   margin: 0 auto;
 }
+
+.controls__current-time,
+.controls__total-time {
+  color: white;
+}

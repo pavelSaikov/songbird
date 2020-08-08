@@ -5,6 +5,9 @@ export const useStyles = createUseStyles({
     display: 'flex',
     flexWrap: 'no-wrap',
     marginTop: '20px',
+    '@media (max-width: 650px)': {
+      flexDirection: 'column',
+    },
   },
   nextLevelButton: {
     marginTop: '20px',
