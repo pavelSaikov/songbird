@@ -1,11 +1,16 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
+import correctAnswerSound from '../../../../../assets/sounds/correct-answer.mp3';
+import incorrectAnswerSound from '../../../../../assets/sounds/incorrect-answer.mp3';
 import { useStyles } from './answers.styles';
-import { isShowAnswerSelector } from '../../store/game.selectors';
+import { isShowAnswerSelector, roundPointsSelector } from '../../store/game.selectors';
+import { setChosenBird, setIsShowAnswer, setRoundPoints } from '../../store/game.actions';
 
-export const Answers = ({ answers, correctAnswer, onAnswerClick }) => {
+export const Answers = ({ answers, correctAnswer }) => {
+  const dispatch = useDispatch();
+  const roundPoints = useSelector(roundPointsSelector);
   const {
     answersContainer,
     answerContainer,
@@ -19,6 +24,7 @@ export const Answers = ({ answers, correctAnswer, onAnswerClick }) => {
   } = useStyles();
   const isShowAnswer = useSelector(isShowAnswerSelector);
   const [answersData, setAnswersData] = useState(null);
+  const audioRef = useRef(null);
 
   useEffect(() => {
     const preparedAnswers = answers.map(({ name }) => ({
@@ -31,25 +37,37 @@ export const Answers = ({ answers, correctAnswer, onAnswerClick }) => {
   }, [answers, correctAnswer]);
 
   const onAnswer = useCallback(
-    (answer) => {
-      onAnswerClick(answer);
+    (answer, index) => {
+      if (audioRef.current && !audioRef.current.ended) {
+        return;
+      }
+
+      dispatch(setChosenBird({ ...answers[index] }));
 
       if (isShowAnswer) {
         return;
       }
 
-      const newAnswerData = [...answersData];
-      newAnswerData.forEach((answerObj) => {
-        if (answerObj.answer !== answer) {
-          return;
-        }
+      const answerObj = { ...answersData[index] };
+      answerObj.isAnswered = true;
 
-        answerObj.isAnswered = true;
-        answerObj.isCorrect = answer === correctAnswer;
-      });
-      setAnswersData(newAnswerData);
+      audioRef.current = new Audio();
+
+      if (answer === correctAnswer) {
+        dispatch(setIsShowAnswer(true));
+        audioRef.current.src = correctAnswerSound;
+      } else {
+        dispatch(setRoundPoints(roundPoints - 1));
+        audioRef.current.src = incorrectAnswerSound;
+      }
+
+      audioRef.current.play();
+
+      const newAnswersData = [...answersData];
+      newAnswersData.splice(index, 1, answerObj);
+      setAnswersData(newAnswersData);
     },
-    [answersData, correctAnswer, onAnswerClick, isShowAnswer],
+    [dispatch, answers, isShowAnswer, answersData, correctAnswer, roundPoints],
   );
 
   return (
@@ -59,7 +77,7 @@ export const Answers = ({ answers, correctAnswer, onAnswerClick }) => {
           <div
             key={`${answer}${isCorrect}${isAnswered}`}
             className={`${answerContainer} ${index === answers.length - 1 ? lastAnswer : ''}`}
-            onClick={() => onAnswer(answer)}
+            onClick={() => onAnswer(answer, index)}
           >
             <div className={circleContainer}>
               <div className={`${circle} ${!isAnswered ? standard : isCorrect ? correct : incorrect}`}></div>
@@ -75,5 +93,4 @@ export const Answers = ({ answers, correctAnswer, onAnswerClick }) => {
 Answers.propTypes = {
   answers: PropTypes.array,
   correctAnswer: PropTypes.string,
-  onAnswerClick: PropTypes.func,
 };

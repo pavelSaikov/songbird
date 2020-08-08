@@ -6,7 +6,6 @@ import './style.css';
 
 export const AudioPlayer = ({ audioUrl }) => {
   const [isAudioPlaying, setIsAudioPlaying] = useReducer((state) => !state, false);
-
   useEffect(() => {
     Amplitude.init({
       songs: [

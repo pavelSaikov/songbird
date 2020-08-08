@@ -3,7 +3,6 @@ import { createUseStyles } from 'react-jss';
 export const useStyles = createUseStyles({
   answersContainer: {
     width: '45%',
-    marginTop: '20px',
     backgroundColor: '#303030',
     borderRadius: '8px',
     border: '1px solid #555',

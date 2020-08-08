@@ -1,22 +1,22 @@
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
 
 import birdMock from '../../../../../assets/images/bird-mock.jpg';
-import { isShowAnswerSelector } from '../../store/game.selectors';
 import { useStyles } from './guessing-bird.styles';
 import { AudioPlayer } from './audio-player/audio-player.jsx';
 
-export const GuessingBird = ({ imgUrl, songUrl, birdName, latinBirdName, isShowLatinName }) => {
+export const GuessingBird = ({ imgUrl, songUrl, birdName, latinBirdName, isShowLatinName, isShowAnswer }) => {
   const classes = useStyles({ isShowLatinName });
-  const isShowAnswer = useSelector(isShowAnswerSelector);
 
   const birdNameMemo = useMemo(() => {
     if (isShowAnswer) {
       return birdName;
     }
 
-    return '*'.repeat(birdName.length);
+    return birdName
+      .split('')
+      .map((symbol) => (symbol === ' ' ? ' ' : '*'))
+      .join('');
   }, [isShowAnswer, birdName]);
 
   return (
@@ -47,4 +47,5 @@ GuessingBird.propTypes = {
   birdName: PropTypes.string,
   latinBirdName: PropTypes.string,
   isShowLatinName: PropTypes.bool,
+  isShowAnswer: PropTypes.bool,
 };
