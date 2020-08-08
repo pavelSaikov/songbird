@@ -2,13 +2,21 @@ import { createUseStyles } from 'react-jss';
 
 export const useStyles = createUseStyles({
   answersContainer: {
-    width: '45%',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-around',
+    width: '35%',
     backgroundColor: '#303030',
     borderRadius: '8px',
     border: '1px solid #555',
+    '@media (max-width: 650px)': {
+      width: 'auto',
+    },
   },
   answerContainer: {
     display: 'flex',
+    alignItems: 'center',
+    height: '100%',
     padding: '13px 10px 13px 0',
     borderBottom: '1px solid #555',
     cursor: 'pointer',
@@ -37,5 +45,8 @@ export const useStyles = createUseStyles({
   },
   text: {
     fontSize: '13px',
+  },
+  audioPlayer: {
+    display: 'none',
   },
 });

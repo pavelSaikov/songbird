@@ -1,6 +1,7 @@
 import React, { useMemo, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
+import happyGif from '../../../../../assets/images/happy.gif';
 import { gameScopeSelector } from '../../store/game.selectors';
 import { MAX_POINTS_PER_ROUND } from '../../game.models';
 import { BIRD_GROUPS } from '../../../../data/birds-data';
@@ -31,10 +32,14 @@ export const EndGameNotification = () => {
         </div>
       )}
       {gameScope === maxGameScope && (
-        <div>
+        <div className={classes.absoluteWinContainer}>
           <div className={`${classes.text} ${classes.header}`}>Поздравляем!</div>
           <div className={`${classes.text} ${classes.description}`}>
-            Вы прошли викторину и набрали максимальное количество баллов!
+            <p>Вы прошли викторину и набрали максимальное количество баллов!</p>{' '}
+            <p>Ниже можно посмотреть на себя со стороны...</p>
+          </div>
+          <div className={classes.gifContainer}>
+            <img src={happyGif} className={classes.gif} />
           </div>
         </div>
       )}

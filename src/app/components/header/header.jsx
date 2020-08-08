@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import logo from '../../../assets/logo.svg';
+import logo from '../../../assets/images/logo.svg';
 import { BIRD_GROUPS_TRANSLATION_MAP } from '../../data/birds-data';
 import { useStyle } from './header.styles';
 import { indexOfBirdGroupSelector, gameScopeSelector } from '../game/store/game.selectors';

@@ -7,6 +7,7 @@ import incorrectAnswerSound from '../../../../../assets/sounds/incorrect-answer.
 import { useStyles } from './answers.styles';
 import { isShowAnswerSelector, roundPointsSelector } from '../../store/game.selectors';
 import { setChosenBird, setIsShowAnswer, setRoundPoints } from '../../store/game.actions';
+import GreenAudioPlayer from 'green-audio-player/src/js/main';
 
 export const Answers = ({ answers, correctAnswer }) => {
   const dispatch = useDispatch();
@@ -49,20 +50,24 @@ export const Answers = ({ answers, correctAnswer }) => {
       }
 
       const answerObj = { ...answersData[index] };
-      answerObj.isAnswered = true;
 
       audioRef.current = new Audio();
 
       if (answer === correctAnswer) {
         dispatch(setIsShowAnswer(true));
         audioRef.current.src = correctAnswerSound;
+        GreenAudioPlayer.stopOtherPlayers();
       } else {
-        dispatch(setRoundPoints(roundPoints - 1));
+        if (!answerObj.isAnswered) {
+          dispatch(setRoundPoints(roundPoints - 1));
+        }
+
         audioRef.current.src = incorrectAnswerSound;
       }
 
       audioRef.current.play();
 
+      answerObj.isAnswered = true;
       const newAnswersData = [...answersData];
       newAnswersData.splice(index, 1, answerObj);
       setAnswersData(newAnswersData);
