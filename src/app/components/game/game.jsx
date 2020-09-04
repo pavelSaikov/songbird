@@ -52,6 +52,8 @@ export const Game = () => {
       Math.floor(Math.random() * BIRDS_PER_ROUND),
     );
 
+    console.log('Indexes of correct answers: ', correctAnswersForRounds);
+
     setBirdsForRounds(birdsForRounds);
     setCorrectAnswers(correctAnswersForRounds);
     incrementIndexCurrentRound(0);
